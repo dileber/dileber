@@ -18,7 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
-import com.zhonghua.newLib.R;
+import com.zhonghua.dileber.R;
 
 import java.util.List;
 

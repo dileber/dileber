@@ -1,9 +1,9 @@
 package com.zhonghua.smailadd.scm.goods;
 
 import com.android.volley.VolleyError;
-import com.zhonghua.newLib.http.HttpListener;
-import com.zhonghua.newLib.mvp.scm.Scm;
-import com.zhonghua.newLib.tools.SLog;
+import com.zhonghua.dileber.http.HttpListener;
+import com.zhonghua.dileber.mvp.scm.Scm;
+import com.zhonghua.dileber.tools.SLog;
 import com.zhonghua.smailadd.model.GoodsModel;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class GoodsListScm extends Scm implements IGoodsListScm {
     @Override
-    public void getGoodsList(String search, Integer order, Integer orderType, Double lat, Double lon, OnGoodsListListener onGoodslistListener) {
+    public void getGoodsList(String search, Integer order, Integer orderType, Double lat, Double lon, final OnGoodsListListener onGoodslistListener) {
         onGoodslistListener.before();
         Map<String,Object> map = new HashMap<String,Object>();
         netWork("http://api.avatardata.cn/Constellation/Query", null, GoodsModel.class, new HttpListener<GoodsModel>(){

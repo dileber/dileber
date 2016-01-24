@@ -1,6 +1,6 @@
 package cn.pedant.SweetAlert;
 
-import com.zhonghua.newLib.R;
+import com.zhonghua.dileber.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;

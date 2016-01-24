@@ -1,7 +1,7 @@
 package com.zhonghua.smailadd.scm;
 
 import android.widget.ImageView;
-import com.zhonghua.newLib.mvp.scm.Scm;
+import com.zhonghua.dileber.mvp.scm.Scm;
 import com.zhonghua.smailadd.R;
 
 /**

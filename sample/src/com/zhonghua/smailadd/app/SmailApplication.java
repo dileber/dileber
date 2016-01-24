@@ -1,6 +1,6 @@
 package com.zhonghua.smailadd.app;
 
-import com.zhonghua.newLib.app.SApplication;
+import com.zhonghua.dileber.app.SApplication;
 
 /**
  * Created by shidawei on 16/1/21.

@@ -1,10 +1,8 @@
 package com.zhonghua.smailadd.delegate;
 
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.zhonghua.newLib.mvp.view.AppViewDelegate;
+import com.zhonghua.dileber.mvp.view.AppViewDelegate;
 import com.zhonghua.smailadd.R;
 
 /**

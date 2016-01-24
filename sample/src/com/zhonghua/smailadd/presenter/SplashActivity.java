@@ -1,17 +1,13 @@
 package com.zhonghua.smailadd.presenter;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
-import cn.pedant.SweetAlert.SweetAlertDialog;
-import com.zhonghua.newLib.mvp.presenter.ActivityPresenter;
-import com.zhonghua.newLib.mvp.scm.Scm;
-import com.zhonghua.newLib.tools.HJson;
-import com.zhonghua.newLib.tools.SLog;
-import com.zhonghua.newLib.tools.annotation.CloseStatusBar;
-import com.zhonghua.newLib.tools.annotation.CloseTitle;
-import com.zhonghua.newLib.view.dialog.DialogLinstener;
+import android.widget.ImageView;
+import com.zhonghua.dileber.mvp.presenter.ActivityPresenter;
+import com.zhonghua.dileber.tools.HJson;
+import com.zhonghua.dileber.tools.SLog;
+import com.zhonghua.dileber.tools.annotation.CloseStatusBar;
+import com.zhonghua.dileber.tools.annotation.CloseTitle;
 import com.zhonghua.smailadd.R;
 import com.zhonghua.smailadd.delegate.SplashViewDelegate;
 import com.zhonghua.smailadd.model.GoodsModel;
@@ -28,7 +24,7 @@ public class SplashActivity extends ActivityPresenter<SplashViewDelegate>  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ISplashScm imageSrc = new SplashScm();
-        imageSrc.showSplashResourceImage(viewDelegate.get(R.id.imageView));
+        imageSrc.showSplashResourceImage((ImageView) viewDelegate.get(R.id.imageView));
 
         GoodsListScm goodsListScm = new GoodsListScm();
         goodsListScm.getGoodsList(null, null, null, null, null, new OnGoodsListListener<GoodsModel>() {

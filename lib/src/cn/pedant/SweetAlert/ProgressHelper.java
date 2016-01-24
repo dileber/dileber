@@ -3,7 +3,7 @@ package cn.pedant.SweetAlert;
 import android.content.Context;
 
 import com.pnikosis.materialishprogress.ProgressWheel;
-import com.zhonghua.newLib.R;
+import com.zhonghua.dileber.R;
 
 public class ProgressHelper {
     private ProgressWheel mProgressWheel;

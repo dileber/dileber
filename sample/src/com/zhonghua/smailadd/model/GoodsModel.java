@@ -1,6 +1,6 @@
 package com.zhonghua.smailadd.model;
 
-import com.zhonghua.newLib.mvp.model.SModel;
+import com.zhonghua.dileber.mvp.model.SModel;
 
 /**
  * Created by shidawei on 16/1/17.

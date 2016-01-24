@@ -1,6 +1,6 @@
 package com.zhonghua.smailadd.scm;
 
-import com.zhonghua.newLib.mvp.scm.Scm;
+import com.zhonghua.dileber.mvp.scm.Scm;
 
 /**
  * Created by shidawei on 16/1/17.

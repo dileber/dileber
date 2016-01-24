@@ -1,0 +1,31 @@
+package com.zhonghua.smailadd.delegate;
+
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import com.zhonghua.newLib.mvp.view.AppViewDelegate;
+import com.zhonghua.smailadd.R;
+
+/**
+ * Created by shidawei on 16/1/17.
+ */
+public class SplashViewDelegate extends AppViewDelegate implements ISplashView{
+
+
+    @Override
+    public int getRootLayoutId() {
+        return R.layout.activity_splash;
+    }
+
+    LinearLayout splash_layout;
+    ImageView imageView;
+
+    @Override
+    public void initWidget() {
+        super.initWidget();
+        splash_layout = bindView(R.id.splash_layout);
+        imageView = bindView(R.id.imageView);
+    }
+
+}

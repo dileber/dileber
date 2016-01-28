@@ -2,6 +2,23 @@
 android mvp 框架
 这是一款mvp框架，他能帮助你快速的搭建应用。
 
+本框架带有自动生成代码的工具
+需要你在frame.conf中配置例如
+
+#包名
+@package: com.zhonghua.dilebertest
+#activity 类的名
+@a: Main
+@a: Splash
+#Fragment 类的名
+@f: Smzdes
+#子类包
+@goods:[@f: Goods,@a: Moneys,@f: Jzs]
+@goodfs:[@f: Goods,@a: Moneys,@f: Jzs]
+
+
+
+
 官方交流qq群：171443726
 
 使用介绍：

@@ -3,10 +3,15 @@ package com.zhonghua.dileber.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.view.Window;
 import com.zhonghua.dileber.http.CacheConfig;
 import com.zhonghua.dileber.tools.SLog;
+import com.zhonghua.dileber.tools.annotation.SFontdType;
 
 public class SApplication extends Application{
+
+	public static Typeface icon_font;
 
 	private static SApplication instance;
 	private static Context context;
@@ -18,6 +23,10 @@ public class SApplication extends Application{
 		instance = this;
 		context = instance.getApplicationContext();
 		CacheConfig.initCacheConfig(context);
+		if (this.getClass().isAnnotationPresent(SFontdType.class)) {
+			icon_font = Typeface.createFromAsset(getAssets(), this.getClass().getAnnotation(SFontdType.class).value());
+		}
+
 	}
 	
 	public static Context getAppContext() {

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.zhonghua.dileber.mvp.view.IViewDelegate;
 
 
-public abstract class FragmentPresenter<T extends IViewDelegate> extends Fragment {
+public abstract class FragmentPresenter<T extends IViewDelegate> extends Fragment implements View.OnClickListener{
     public T viewDelegate;
 
     @Override

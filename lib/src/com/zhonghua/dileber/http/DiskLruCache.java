@@ -91,7 +91,7 @@ import java.util.concurrent.TimeUnit;
  * observe the value at the time that {@link #get} was called. Updates and
  * removals after the call do not impact ongoing reads.
  *
- * <p>This class is tolerant of some I/O errors. If files are missing from the
+ * <p>This classzm is tolerant of some I/O errors. If files are missing from the
  * filesystem, the corresponding entries will be dropped from the cache. If
  * an error occurs while writing a cache value, the edit will fail silently.
  * Callers should handle other problems by catching {@code IOException} and

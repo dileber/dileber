@@ -32,8 +32,7 @@ public class Scm implements INetWork {
     @Override
     public void netWorkForImage(ImageView imageView, String url, int errorImage) {
         HttpManager httpManager = HttpManager.getInstance();
-        httpManager.requestImage(imageView,url,errorImage);
+        httpManager.requestImage(imageView, url, errorImage);
     }
-
 
 }

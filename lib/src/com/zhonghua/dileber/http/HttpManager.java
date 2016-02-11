@@ -8,6 +8,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import okhttp3.OkHttpClient;
 
 import java.util.Map;
 
@@ -59,8 +60,9 @@ public class HttpManager {
     private HttpManager() {
 
         //mRequestQueue = Volley.newRequestQueue(SApplication.getAppContext());
-
+        //mRequestQueue = new RequestQueue(CacheConfig.getDiskCache(), new SBaseNetWork(new OkHttpStack(new OkHttpClient())));
         mRequestQueue = new RequestQueue(CacheConfig.getDiskCache(), new SBaseNetWork(new HurlStack()));
+
         mRequestQueue.start();
     }
 
@@ -112,7 +114,5 @@ public class HttpManager {
     public boolean containImageCache(String url) {
         return getNetworkImageLoader().isCached(url, 0, 0);
     }
-
-
 
 }

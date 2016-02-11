@@ -8,4 +8,8 @@ public class Configer {
 
 	public static final String http_one = "";
 
+	public static final String DB_NAME = "user";
+
+	public static final int DB_VERSION = 1;
+
 }

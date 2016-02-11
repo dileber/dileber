@@ -2,15 +2,14 @@ package com.zhonghua.dilebertest.presenter.goodfs;
 
 import android.view.View;
 import com.zhonghua.dileber.mvp.presenter.FragmentPresenter;
-import com.kymjs.frame.samples.demo1.SimpleDelegate;
+import com.zhonghua.dilebertest.delegate.goodfs.GoodsFragmentViewDelegate;
 import com.zhonghua.dilebertest.R;
-import com.zhonghua.dilebertest.delegate.goodfsGoodsFragmentViewDelegate;
-import com.zhonghua.dilebertest.scm.goodfsIGoodsScm;
-import com.zhonghua.dilebertest.scm.goodfsGoodsScm;
+import com.zhonghua.dilebertest.scm.goodfs.IGoodsFragmentScm;
+import com.zhonghua.dilebertest.scm.goodfs.GoodsFragmentScm;
 
 public class GoodsFragment extends FragmentPresenter<GoodsFragmentViewDelegate> {
     @Override
-    protected Class<SimpleDelegate> getDelegateClass() {
+    protected Class<GoodsFragmentViewDelegate> getDelegateClass() {
         return GoodsFragmentViewDelegate.class;
     }
 

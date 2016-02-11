@@ -2,15 +2,14 @@ package com.zhonghua.dilebertest.presenter;
 
 import android.view.View;
 import com.zhonghua.dileber.mvp.presenter.FragmentPresenter;
-import com.kymjs.frame.samples.demo1.SimpleDelegate;
-import com.zhonghua.dilebertest.R;
 import com.zhonghua.dilebertest.delegate.SmzdesFragmentViewDelegate;
-import com.zhonghua.dilebertest.scm.ISmzdesScm;
-import com.zhonghua.dilebertest.scm.SmzdesScm;
+import com.zhonghua.dilebertest.R;
+import com.zhonghua.dilebertest.scm.ISmzdesFragmentScm;
+import com.zhonghua.dilebertest.scm.SmzdesFragmentScm;
 
 public class SmzdesFragment extends FragmentPresenter<SmzdesFragmentViewDelegate> {
     @Override
-    protected Class<SimpleDelegate> getDelegateClass() {
+    protected Class<SmzdesFragmentViewDelegate> getDelegateClass() {
         return SmzdesFragmentViewDelegate.class;
     }
 

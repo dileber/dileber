@@ -103,7 +103,7 @@ public class DBManager {
 //    public Long insertData(String table, ContentValues values){
 //        long result = 0;
 //        if(sqliteDatabase.isOpen()){
-//            result = sqliteDatabase.insert(table, null, values);
+//            result = sqliteDatabase.Insert(table, null, values);
 //        }
 //        return result;
 //    }

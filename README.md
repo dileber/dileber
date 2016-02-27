@@ -58,6 +58,21 @@ mvp为什么流行
 
 dileber 是基于MVP的模式开发出来的，任何一个android开发人员都能够在我这套框架下开发出漂亮的android代码
 
+首先是android权限
+
+以下几个权限必须加上
+<!--联网权限-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--往sdcard中写入数据的权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!--在sdcard中创建/删除文件的权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+    <!--获取wifi状态-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+
+
+
+
 如下是 dileber项目里lib的mvp包中的项目架构
 model包
 是一个model基类 目前类中没有方法，以后我在修改框架的时候可能会在其中增加方法，继承这个model基类的model才有

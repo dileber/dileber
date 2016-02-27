@@ -28,9 +28,16 @@ public class Scm implements INetWork {
         }else if(type.equals(TYPE_POST)){
             method =  Request.Method.POST;
         }
-        httpManager.requestGson(method,url,map,listener,clazz);
+        httpManager.requestGson(method, url, map, listener, clazz);
     }
 
+    /**
+     *  已经有networkImageView支持～～这个要废弃掉了
+     * @param imageView
+     * @param url
+     * @param errorImage
+     */
+    @Deprecated
     @Override
     public void netWorkForImage(ImageView imageView, String url, int errorImage) {
         httpManager.requestImage(imageView, url, errorImage);

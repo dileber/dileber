@@ -16,7 +16,7 @@ public class GsonRequest<T> extends Request<T> {
     private final Response.Listener<T>listener;
     private Class<T> mClass;
 
-    private Map<String, String> mParams;
+    private Map<String, Object> mParams;
 
     private static Map<String, String> mHeader = new HashMap<String, String>();
 
@@ -27,14 +27,12 @@ public class GsonRequest<T> extends Request<T> {
     }
 
 
-    public GsonRequest(int method,String url,Map<String, String> params,HttpListener<T> listener,Class<T> tClass){
+    public GsonRequest(int method,String url,Map<String, Object> params,HttpListener<T> listener,Class<T> tClass){
         super(method,url,listener);
         this.listener=listener;
         mClass = tClass;
         mParams = params;
     }
-
-
 
 
     /**
@@ -82,6 +80,7 @@ public class GsonRequest<T> extends Request<T> {
 
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
-        return mParams;
+        Map<String, String> ret= CommonParams.addCommonParams(this.mParams);
+        return ret;
     }
 }

@@ -2,6 +2,7 @@ package com.zhonghua.dileber.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.zhonghua.dileber.app.FrameContants;
 import com.zhonghua.dileber.app.SApplication;
 
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class PerfManager {
         }
         return prefs.get(name);
     }
+
 
     /**
      * 保存在手机里面的文件名
@@ -159,6 +161,22 @@ public class PerfManager {
         return null;
     }
 
+
+    public synchronized Object getSystmPreferences(String key, Object defaultObject){
+        return get(FrameContants.SYSTEM_PREFERANCE,key,defaultObject);
+    }
+
+
+    public synchronized boolean clearSystemPreferences(){
+        SharedPreferences sp = getPreferance(FrameContants.SYSTEM_PREFERANCE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        return editor.commit();
+    }
+
+    public synchronized boolean putSystemPreferences(String key, Object object){
+        return put(FrameContants.SYSTEM_PREFERANCE,key,object);
+    }
 
 
     /**

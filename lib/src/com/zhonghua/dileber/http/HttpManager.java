@@ -45,14 +45,19 @@ public class HttpManager {
             mRequestQueue.stop();
     }
 
+    /**
+     * 检查网址是否是真
+     * @param url
+     * @return
+     */
     public static boolean isValidUrl(String url) {
-        try {
-            return Patterns.WEB_URL.matcher(url).matches();
-        } catch (Exception e) {
-            // 解析错误，非正常Url
-            e.printStackTrace();
-        }
-        return false;
+//        try {
+//            return Patterns.WEB_URL.matcher(url).matches();
+//        } catch (Exception e) {
+//            // 解析错误，非正常Url
+//            e.printStackTrace();
+//        }
+        return true;
     }
 
     private RequestQueue mRequestQueue;
@@ -64,6 +69,8 @@ public class HttpManager {
         mRequestQueue = new RequestQueue(CacheConfig.getDiskCache(), new SBaseNetWork(new HurlStack()));
 
         mRequestQueue.start();
+
+        mNetworkImageLoader = new ImageLoader(mRequestQueue, CacheConfig.getBitmapCache());
     }
 
     public<T>void addRequestQueue(Request<T> request) {
@@ -73,7 +80,7 @@ public class HttpManager {
     }
 
 
-    public<T> void requestGson(int method,final String url,Map<String, String> map, final HttpListener<T> httpListener,Class<T> clazz) {
+    public<T> void requestGson(int method,final String url,Map<String, Object> map, final HttpListener<T> httpListener,Class<T> clazz) {
         // url判断
         if (!isValidUrl(url)) {
             httpListener.onFailure(new VolleyError("ERROR: URL IS NOT EXITENT"));
@@ -85,11 +92,7 @@ public class HttpManager {
 
     private ImageLoader mNetworkImageLoader;
 
-    private ImageLoader getNetworkImageLoader() {
-        if (mNetworkImageLoader == null) {
-            // 开启内存和本地二级缓存
-            mNetworkImageLoader = new ImageLoader(mRequestQueue, CacheConfig.getBitmapCache());
-        }
+    public ImageLoader getNetworkImageLoader() {
         return mNetworkImageLoader;
     }
 
@@ -102,14 +105,14 @@ public class HttpManager {
         getNetworkImageLoader().get(url, new HttpImage(imageView, errorImage));
     }
 
-    public boolean getCachedImages(NetworkImageView imageView, String url) {
-        if (!isValidUrl(url)) {
-            return false;
-        }
-
-        imageView.setImageUrl(url, getNetworkImageLoader());
-        return true;
-    }
+//    public boolean getCachedImages(NetworkImageView imageView, String url) {
+//        if (!isValidUrl(url)) {
+//            return false;
+//        }
+//
+//        imageView.setImageUrl(url, getNetworkImageLoader());
+//        return true;
+//    }
 
     public boolean containImageCache(String url) {
         return getNetworkImageLoader().isCached(url, 0, 0);

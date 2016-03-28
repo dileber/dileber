@@ -3,6 +3,7 @@ package com.zhonghua.dileber.mvp.presenter;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -14,18 +15,15 @@ import com.zhonghua.dileber.tools.annotation.CloseStatusBar;
 import com.zhonghua.dileber.tools.annotation.CloseTitle;
 import com.zhonghua.dileber.tools.annotation.HideKeyboard;
 
-
 /**
- * 后期会被fragmentactivitity替换
- * Created by shidawei on 16/1/10.
+ * Created by shidawei on 16/3/19.
  */
-@Deprecated
-public abstract class ActivityPresenter<T extends IViewDelegate> extends Activity implements View.OnClickListener{
+public abstract class FragmentActivityPresenter<T extends IViewDelegate> extends FragmentActivity implements View.OnClickListener{
 
     protected T viewDelegate;
     protected boolean hideKeyboardWhenTouchOutside = false;
 
-    public ActivityPresenter() {
+    public FragmentActivityPresenter() {
         try {
             viewDelegate = getDelegateClass().newInstance();
         } catch (InstantiationException e) {
@@ -130,5 +128,6 @@ public abstract class ActivityPresenter<T extends IViewDelegate> extends Activit
         }
         return false;
     }
+
 
 }

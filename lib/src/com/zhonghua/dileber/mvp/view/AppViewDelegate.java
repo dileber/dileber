@@ -2,28 +2,29 @@ package com.zhonghua.dileber.mvp.view;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.SparseArray;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import com.zhonghua.dileber.R;
+import com.zhonghua.dileber.tools.annotation.HideKeyboard;
 import com.zhonghua.dileber.view.dialog.DialogLinstener;
 
 /**
  * Created by shidawei on 16/1/10.
  */
-public abstract class AppViewDelegate implements IViewDelegate {
+public abstract class AppViewDelegate implements IViewDelegate{
 
     protected final SparseArray<View> mViews = new SparseArray<View>();
 
     protected View rootView;
+
 
     public abstract int getRootLayoutId();
 
@@ -99,13 +100,15 @@ public abstract class AppViewDelegate implements IViewDelegate {
 
     public static final int DIALOG_ERROR = 1;
     public static final int DIALOG_SUCCESS = 2;
+    public static final int DIALOG_NORMAL = 3;
+    public static final int DIALOG_WARNING = 4;
 
 
 
     public void showAlert(Integer type,String message){
         SweetAlertDialog alertDialog = new SweetAlertDialog(getActivity());
         if(type==null){
-            type = DIALOG_ERROR;
+            type = DIALOG_NORMAL;
         }
         switch (type){
             case DIALOG_ERROR:
@@ -114,6 +117,14 @@ public abstract class AppViewDelegate implements IViewDelegate {
                 break;
             case DIALOG_SUCCESS:
                 alertDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                alertDialog.setTitleText(getActivity().getResources().getString(R.string.dialog_success));
+                break;
+            case DIALOG_NORMAL:
+                alertDialog.changeAlertType(SweetAlertDialog.NORMAL_TYPE);
+                alertDialog.setTitleText(getActivity().getResources().getString(R.string.dialog_success));
+                break;
+            case DIALOG_WARNING:
+                alertDialog.changeAlertType(SweetAlertDialog.WARNING_TYPE);
                 alertDialog.setTitleText(getActivity().getResources().getString(R.string.dialog_success));
                 break;
         }
@@ -141,6 +152,7 @@ public abstract class AppViewDelegate implements IViewDelegate {
         ((SweetAlertDialog)alert).setCancelText(getActivity().getResources().getString(R.string.dialog_cancel));
         ((SweetAlertDialog)alert).setConfirmText(getActivity().getResources().getString(R.string.dialog_ok));
         ((SweetAlertDialog)alert).showCancelButton(true);
+        ((SweetAlertDialog)alert).setCancelable(false);
         ((SweetAlertDialog)alert).setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
@@ -155,6 +167,8 @@ public abstract class AppViewDelegate implements IViewDelegate {
         });
         alert.show();
     }
+
+
 
 
 }

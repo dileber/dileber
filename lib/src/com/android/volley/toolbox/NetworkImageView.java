@@ -16,6 +16,7 @@
 package com.android.volley.toolbox;
 
 import android.content.Context;
+import android.graphics.*;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ViewGroup.LayoutParams;
@@ -30,9 +31,16 @@ import com.zhonghua.dileber.http.HttpManager;
  * associated request.
  */
 public class NetworkImageView extends ImageView {
+
+    public static final int DEFAULT_IMAGE = 0, CIRCLE_IMAGE = 1,
+            ROUND_RECT_IMAGE = 2;
+    /**
+     * 图的类型
+     */
+    private int mImgShapeType;
     /** The URL of the network image to load */
     private String mUrl;
-
+    private int radius, narrowX, narrowY;
     /**
      * Resource ID of the image to be used as a placeholder until the network image is loaded.
      */
@@ -59,8 +67,27 @@ public class NetworkImageView extends ImageView {
 
     public NetworkImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mImgShapeType = DEFAULT_IMAGE;
+        radius = 0;
     }
     private int mImageType = -1;
+
+    public void setImageShapeType(int tp) {
+        this.mImgShapeType = tp;
+    }
+
+    /**
+     * 圆角矩形
+     * @param radius
+     * @param narrowX
+     * @param narrowY
+     */
+    public void setRadius(int radius, int narrowX, int narrowY) {
+        this.radius = radius;
+        this.narrowX = narrowX;
+        this.narrowY = narrowY;
+    }
+
     /**
      * Sets URL of the image that should be loaded into this view. Note that calling this will
      * immediately either set the cached image (if available) or the default image specified by
@@ -141,7 +168,8 @@ public class NetworkImageView extends ImageView {
             } else {
                 // if there is a pre-existing request, cancel it if it's fetching a different URL.
                 mImageContainer.cancelRequest();
-                setDefaultImageOrNull();
+                setDefaultImage(this.mImageType);
+                //setDefaultImageOrNull();
             }
         }
 
@@ -177,7 +205,11 @@ public class NetworkImageView extends ImageView {
                         }
 
                         if (response.getBitmap() != null) {
-                            setImageBitmap(response.getBitmap());
+                            if (mImgShapeType == DEFAULT_IMAGE) {
+                                setImageBitmap(response.getBitmap());
+                            }else if(mImgShapeType == CIRCLE_IMAGE) {
+                                setImageBitmap(toRoundBitmap(response.getBitmap()));
+                            }
                         } else if (mDefaultImageId != 0) {
                             setImageResource(mDefaultImageId);
                         }
@@ -228,4 +260,105 @@ public class NetworkImageView extends ImageView {
         super.drawableStateChanged();
         invalidate();
     }
+
+    /**
+     * 圆角矩形
+     * @param r
+     * @param rx
+     * @param ry
+     * @param bitmap
+     * @return
+     */
+    private Bitmap toRoundRectBitmap(int r, int rx, int ry, Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        RectF dst = new RectF(rx, ry, width - rx, height - ry);
+
+        // path.computeBounds(dst, true);
+
+        Rect src = new Rect(0, 0, width, height);
+
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final Paint paint = new Paint();
+        paint.setAntiAlias(true);// 设置画笔无锯齿
+
+        canvas.drawARGB(0, 0, 0, 0); // 填充整个Canvas
+
+        // 以下有两种方法画圆,drawRounRect和drawCircle
+        canvas.drawRoundRect(dst, r, r, paint);// 画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
+        // canvas.drawCircle(roundPx, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));// 设置两张图片相交时的模式,参考http://trylovecatch.iteye.com/blog/1189452
+        canvas.drawBitmap(bitmap, src, src, paint); // 以Mode.SRC_IN模式合并bitmap和已经draw了的Circle
+        // bitmap.recycle();
+        return output;
+    }
+
+    /**
+     * 圆形
+     * @param bitmap
+     * @return
+     */
+    public Bitmap toRoundBitmap(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        float roundPx;
+        float left, top, right, bottom, dst_left, dst_top, dst_right, dst_bottom;
+        if (width <= height) {
+            roundPx = width / 2;
+
+            left = 0;
+            top = 0;
+            right = width;
+            bottom = width;
+
+            height = width;
+
+            dst_left = 0;
+            dst_top = 0;
+            dst_right = width;
+            dst_bottom = width;
+        } else {
+            roundPx = height / 2;
+
+            float clip = (width - height) / 2;
+
+            left = clip;
+            right = width - clip;
+            top = 0;
+            bottom = height;
+            width = height;
+
+            dst_left = 0;
+            dst_top = 0;
+            dst_right = height;
+            dst_bottom = height;
+        }
+
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final Paint paint = new Paint();
+        final Rect src = new Rect((int) left, (int) top, (int) right,
+                (int) bottom);
+        final Rect dst = new Rect((int) dst_left, (int) dst_top,
+                (int) dst_right, (int) dst_bottom);
+        final RectF rectF = new RectF(dst);
+
+        paint.setAntiAlias(true);// 设置画笔无锯齿
+
+        canvas.drawARGB(0, 0, 0, 0); // 填充整个Canvas
+
+        // 以下有两种方法画圆,drawRounRect和drawCircle
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);// 画圆角矩形，第一个参数为图形显示区域，第二个参数和第三个参数分别是水平圆角半径和垂直圆角半径。
+        // canvas.drawCircle(roundPx, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));// 设置两张图片相交时的模式,参考http://trylovecatch.iteye.com/blog/1189452
+        canvas.drawBitmap(bitmap, src, dst, paint); // 以Mode.SRC_IN模式合并bitmap和已经draw了的Circle
+        // bitmap.recycle();
+        return output;
+    }
+
 }

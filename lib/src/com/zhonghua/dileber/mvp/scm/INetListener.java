@@ -12,4 +12,6 @@ public interface INetListener <T> {
 
     void failed();
 
+    void errMsg(String msg);
+
 }

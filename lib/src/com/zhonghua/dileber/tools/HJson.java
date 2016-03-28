@@ -1,8 +1,11 @@
 package com.zhonghua.dileber.tools;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +14,24 @@ import java.util.Map;
  */
 public class HJson {
 
+    public static class DateDeserializer implements JsonDeserializer<java.util.Date> {
+        @Override
+        public Date deserialize(JsonElement json, Type type,JsonDeserializationContext context) throws JsonParseException {
+            return new Date(json.getAsJsonPrimitive().getAsLong());
+        }
+    }
+
     private static Gson gson = null;
     static {
         if (gson == null) {
-            gson = new Gson();
+            //gson = new Gson();
+            GsonBuilder gsonb = new GsonBuilder();
+            //Json中的日期表达方式没有办法直接转换成我们的Date类型, 因此需要单独注册一个Date的反序列化类.
+            //DateDeserializer ds = new DateDeserializer();
+            //给GsonBuilder方法单独指定Date类型的反序列化方法
+            gsonb.registerTypeAdapter(Date.class, new DateDeserializer()).setDateFormat(DateFormat.LONG).create();
+            gson = gsonb.create();
+
         }
     }
 

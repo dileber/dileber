@@ -1,5 +1,6 @@
 package com.zhonghua.dileber.http;
 
+import android.content.SharedPreferences;
 import android.util.Patterns;
 import android.widget.ImageView;
 import com.android.volley.Request;
@@ -8,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.zhonghua.dileber.data.PerfManager;
 import okhttp3.OkHttpClient;
 
 import java.util.Map;
@@ -116,6 +118,15 @@ public class HttpManager {
 
     public boolean containImageCache(String url) {
         return getNetworkImageLoader().isCached(url, 0, 0);
+    }
+
+
+    public String putConstantKey(String key, String value) {
+        PerfManager perfManager = PerfManager.getInstance();
+        String token = (String)perfManager.getSystmPreferences(key,"");
+        perfManager.putSystemPreferences(key, value);
+        CommonParams.put(key, value);
+        return token;
     }
 
 }

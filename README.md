@@ -1,3 +1,6 @@
+**该旧款android框架已经不再使用，详细更新框架，请移到 [android开发（如何开发一个可以维护的好项目）：一 、定义基类][1] 项目新框架地址也变更为[https://github.com/dileber/ndileber][2]** 
+------------------------------------------------------------------------
+
 # dileber
 android mvp 框架
 这是一款mvp框架，他能帮助你快速的搭建应用。
@@ -465,5 +468,6 @@ PerfManager.getInstance().get(String name,String key, Object defaultObject)
 PerfManager.getInstance().clear(String name)
 
 
-
+  [1]: http://www.imooc.com/article/13864
+  [2]: https://github.com/dileber/ndileber
 
